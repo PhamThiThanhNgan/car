@@ -1,23 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
+import Car from './model/Car';
+import MovieList from './model/MovieList';
+import Product from './model/Product';
+import FPTShop from './phone/FPTShop';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <Car/> */}
+      {/* <MovieList/> */}
+      {/* <Product/> */}
+      <FPTShop/>
     </div>
   );
 }

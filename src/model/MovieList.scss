@@ -1,0 +1,26 @@
+.bg-body{
+    background-image: url("../asset/background/avanger.jpg");
+    background-repeat:  no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 2000px;
+    .row{
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        .col{
+            padding: 10px;
+           box-sizing: border-box;
+            width: 25%;
+        }
+        .roww{
+            text-align: center;
+            color: white;
+             img{
+                width: 40%;
+             }
+         }
+        
+    }
+    
+}

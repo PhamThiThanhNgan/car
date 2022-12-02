@@ -29,7 +29,7 @@ import {connect} from 'react-redux'
     evt.preventDefault();
     if(this.props.user.id){
       //cap nhat
-      this.props.updateUser(this.props.user.id,this.state.values);
+      this.props.onupdateUser(this.props.user.id,this.state.values);
     }else{
       //tao moi
     //them object user vao arr user trong store
@@ -82,6 +82,10 @@ const mapDispatchToProps =(dispatchEvent)=>{
   return{
     onCreateUser:(user)=>{
       const action ={type:"Create_submit_user",user}
+      dispatchEvent(action)
+    },
+    onupdateUser:(userId,user)=>{
+      const action ={type:"Update_submit_user",userId,user}
       dispatchEvent(action)
     }
   }

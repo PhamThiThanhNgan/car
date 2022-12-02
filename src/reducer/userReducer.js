@@ -27,6 +27,15 @@ const userReducer=(state = initialState, action)=>{
             case "Select_user":{
                 return {...state,selectedUser:action.user}
             }
+            case "Update_submit_user":{
+                const users = state.users.map(item=>{
+                    if(item.id===action.userId){
+                        return {...action.user,id: action.userId}
+                    }else
+                        return item;
+                })
+                return {...state,users,selectedUser:{}}
+            }
         default:
             return state;
     }

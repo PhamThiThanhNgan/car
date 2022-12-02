@@ -4,6 +4,7 @@ import MovieList from './model/MovieList';
 import Product from './model/Product';
 import FPTShop from './phone/FPTShop';
 import CartRedux from './cartStore/CartRedux'
+import UserManagement from './UserManagement/UserManagement';
 function App() {
   return (
     <div className="App">
@@ -11,7 +12,8 @@ function App() {
       {/* <MovieList/> */}
       {/* <Product/> */}
       {/* <FPTShop/> */}
-      <CartRedux/>
+      {/* <CartRedux/> */}
+      <UserManagement/>
     </div>
   );
 }

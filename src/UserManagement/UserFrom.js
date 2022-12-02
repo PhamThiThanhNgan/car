@@ -71,7 +71,7 @@ import {connect} from 'react-redux'
             <input type="text" id='dateOfBirth' name='dateOfBirth' value={values.dateOfBirth} className='form-control' onChange={this.handleChange}></input>
           </div>
         </div>
-        <div> <button className='btn btn-dark' onClick={this.handleSubmit}>Submit</button></div>
+        <div> <button className='btn btn-dark'>Submit</button></div>
       </div>
      </form>
       

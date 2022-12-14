@@ -6,11 +6,11 @@ import {connect} from 'react-redux'
     this.state = {
       //object values dung de save cac gia tri dc nhap tu inputs 
        values:{
-          firstName: props.user.firstName || '',
-          lastName: props.user.lastName || '',
-          email: props.user.email || '',
-          address: props.user.address || '',
-          dateOfBirth: props.user.dateOfBirth || '',
+          firstName:   '',
+          lastName:   '',
+          email:   '',
+          address:  '',
+          dateOfBirth:  '',
        }
     }
   }
@@ -38,6 +38,11 @@ import {connect} from 'react-redux'
     this.props.onCreateUser(user);
     }
    
+  }
+  componentDidUpdate(prevProps,prevState){
+      if(prevProps.user.id !== this.props.user.id){
+        this.setState({values: {...this.props.user}});
+      }
   }
   render() {
     //lay value hien thi len man hinh
@@ -92,7 +97,7 @@ const mapDispatchToProps =(dispatchEvent)=>{
 }
 const mapStateToProps =(state)=>{
   return{
-    key: state.user.selectedUser.id,
+    // key: state.user.selectedUser.id,
     user: state.user.selectedUser,
   }
 }

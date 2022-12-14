@@ -5,6 +5,7 @@ import Product from './model/Product';
 import FPTShop from './phone/FPTShop';
 import CartRedux from './cartStore/CartRedux'
 import UserManagement from './UserManagement/UserManagement';
+import ProductManagement from './lifecycle/ProductManagement'
 function App() {
   return (
     <div className="App">
@@ -13,7 +14,9 @@ function App() {
       {/* <Product/> */}
       {/* <FPTShop/> */}
       {/* <CartRedux/> */}
-      <UserManagement/>
+      {/* <UserManagement/> */}
+      {/* <Lifecycle/> */}
+      <ProductManagement/>
     </div>
   );
 }

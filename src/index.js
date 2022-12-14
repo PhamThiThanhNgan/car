@@ -4,11 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 // ddung de khoi tao tao1 redux store
-import { createStore } from "redux"
+import { createStore , applyMiddleware,compose} from "redux"
+//thunk la mot redux middleware de xu ly cac action bat dong bo
+import thunk from 'redux-thunk';
 import {Provider} from "react-redux"
 import rootReducer from "./reducer"
-
-const store = createStore(rootReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+//setup used middleware chung voi redux devtools
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const middleware = applyMiddleware(thunk);
+const store = createStore(rootReducer,composeEnhancers(middleware));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

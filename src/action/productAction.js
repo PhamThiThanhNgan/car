@@ -1,4 +1,5 @@
 import axios from 'axios'
+import * as actionTypes from '../constants/productConstant'; 
 //khi chua co redux thunk, action chi co the la 1 plan object
 // export const getProduct =(product) =>{
 //   return {type :"GetProduct",product:data};
@@ -11,11 +12,15 @@ export const getProduct = () =>{
     return async (dispatch,getState)=>{
       //call api
       try {
+        //trc khi call api dispatch action de set isloading =true
+        dispatch({type: actionTypes.LoadingProduct});
+        //call api
         const response = await axios.get("https://61bee974b25c3a00173f4bd0.mockapi.io/product");
-        //goi api thanh cong dispatch 1 action moi de dua data len store
-        dispatch ({type :"GetProduct",product:response.data});
+        //goi api thanh cong dispatch 1 action moi de dua data len store va set lại isloading = false 
+        dispatch ({type :actionTypes.GetProduct,product:response.data});
       } catch (error) {
-        console.log(error);
+        //call api that bai dispatch 1 action de set isloading = false va set error
+        dispatch({type:actionTypes.GetProduct_Rejected,error:error.response.data});
       }
     }
    }
@@ -44,7 +49,7 @@ export const deleteProduct =(productId)=>{
   }
 }
 
-export const createProduct = (product)=>{
+export const createProduct = (product,onSucces)=>{
   
   return async(dispatch,getState)=>{
     try {
@@ -53,9 +58,31 @@ export const createProduct = (product)=>{
      // this.props.createProduct(data);
  
      // props nay khong phai lay tu mapDispatchToProps, ma tu cpn cha truyen xuong
-     dispatch(getProduct(product))
+     dispatch(getProduct())
+     onSucces();
      } catch (error) {
        console.log(error)
      }
+  }
+}
+export const selectProduct =(productId)=>{
+  return async (dispatch)=>{
+    try {
+      const {data} = await axios.get(`https://61bee974b25c3a00173f4bd0.mockapi.io/product/${productId}`);
+      dispatch({type:actionTypes.selectProducts,product:data})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+export const updateProduct = (productId,product,onSucces)=>{
+  return async (dispatch)=>{
+    try {
+      await axios.put(`https://61bee974b25c3a00173f4bd0.mockapi.io/product/${productId}`,product);
+      dispatch (getProduct());
+      onSucces();
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

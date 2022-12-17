@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import {connect} from 'react-redux'
-import {createProduct} from '../action/productAction'
+import {createProduct,updateProduct} from '../action/productAction'
  class ProductFrom extends Component {
   constructor(props) {
     super(props)
-  
     this.state = {
        values:{
         name:"",
@@ -15,20 +13,27 @@ import {createProduct} from '../action/productAction'
        }
     }
   }
-  handleSubmit = async (evt)=>{
-    evt.preventDefault();
-    this.props.createProduct(this.state.values);
-    // try {
-    //  await axios.post("https://61bee974b25c3a00173f4bd0.mockapi.io/product",this.state.values);
-    // //sd ach nay se khong thay nhung sp dc them dong thoi
-    // // this.props.createProduct(data);
-
-    // // props nay khong phai lay tu mapDispatchToProps, ma tu cpn cha truyen xuong
-    // this.props.onSubmitSuccess();
-    // } catch (error) {
-    //   console.log(error)
-    // }
+  handleoOnSucces=()=>{
+    this.setState({
+      values:{
+        name:"",
+        image: "",
+        price: "",
+        description: "",
+       }
+    })
   }
+  handleSubmit = (evt)=>{
+    evt.preventDefault();
+    const {id,...product}=this.state.values;
+    if(id){
+      this.props.updateProduct(id,product,this.handleoOnSucces)
+    }else{
+      this.props.createProduct(this.state.values,this.handleoOnSucces);
+    }
+    
+  }
+  
   handleChange =(evt)=>{
     const {name,value} = evt.target;
     this.setState((state)=>({
@@ -38,6 +43,12 @@ import {createProduct} from '../action/productAction'
       }
     }))
   }
+  componentDidUpdate(prevProps) {
+    if(prevProps.selectProduct.id !== this.props.selectProduct.id) {
+      //setState lai vale = gia tri moi thay doi cua props selectProduct
+     this.setState({values:{...this.props.selectProduct}});
+  }
+}
   render() {
     const {values}=this.state
     return (
@@ -72,12 +83,19 @@ import {createProduct} from '../action/productAction'
     )
   }
 }
+const mapStateToProps = (state)=>{
+  return{
+    selectProduct: state.product.selectProduct,
+  }
+}
 const mapDispatchToProps =(dispatchEvent) => {
   return{
-    createProduct:(product)=>{
-      // const action={type:"createProduct",product}
-      dispatchEvent(createProduct(product));
+    createProduct:(product,onSucces)=>{
+      dispatchEvent(createProduct(product,onSucces));
+    },
+    updateProduct:(productId,product,onSucces)=>{
+      dispatchEvent(updateProduct(productId,product,onSucces));
     }
   }
 }
-export default connect(null,mapDispatchToProps)(ProductFrom)
+export default connect(mapStateToProps,mapDispatchToProps)(ProductFrom)
